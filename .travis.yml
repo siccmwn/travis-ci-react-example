@@ -14,3 +14,23 @@ cache:
 # test script that will be running by travis-ci
 script:
   - yarn test
+
+#run script before deploy
+before_deploy:
+  - yarn run build
+
+deploy:
+  # set up provider
+  provider: s3
+  access_key_id: $AWS_ACCESS_KEY_ID
+  secret_access_key: $AWS_SECRET_ACCESS_KEY
+  bucket: $S3_BUCKET
+  # prevent travis-ci to reset the directory (git stash)
+  skip_cleanup: true
+  # folder directory that will be deploy to provider
+  local-dir: build
+  # bucket region
+  region: 'ap-southeast-1'
+  # will be deploy only on branch master
+  on:
+    bracnh: master
