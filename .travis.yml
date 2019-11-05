@@ -1,0 +1,16 @@
+# server language
+language: node_js
+
+# node version
+node_js:
+  - '10'
+
+# caching file
+cache:
+  yarn: true
+  directories:
+    - node_modules
+
+# test script that will be running by travis-ci
+script:
+  - yarn test
